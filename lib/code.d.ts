@@ -77,6 +77,7 @@ declare namespace EasyCheers.tools {
             [id: string]: UTXO[];
         }>;
         static bet(contractHash: string, address: string, max: number, odds: number): Promise<Result>;
+        static guess(contractHash: string, address: string, min: number, max: number, odds: number): Promise<Result>;
     }
 }
 declare namespace EasyCheers.tools {
@@ -545,6 +546,7 @@ declare namespace EasyCheers {
         static getGas(): any;
         static getEct(): any;
         static bet(contractHash: string, address: string, max: string, odds: string, callback?: any): Promise<void>;
+        static guess(contractHash: string, address: string, min: string, max: string, val: string, callback?: any): Promise<void>;
     }
 }
 declare namespace EasyCheers.tools {
