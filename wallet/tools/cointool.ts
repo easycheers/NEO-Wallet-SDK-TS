@@ -496,5 +496,32 @@ namespace EasyCheers.tools {
             var result = await Contract.contractInvokeTrans_attributes(sb.ToArray())
             return result;
         }
+
+        /**
+         * 下注
+         * @param contractHash 合约hash
+         * @param address 自己的地址
+         * @param max 概率
+         * @param odds 堵住
+         */
+        static async guess(contractHash: string, address: string, min:number, max: number, odds: number)
+        {
+            console.log(address);
+            
+            var sb = new ThinNeo.ScriptBuilder();
+            var scriptaddress = contractHash.hexToBytes().reverse();
+            //生成随机数
+            let random_uint8 = Neo.Cryptography.RandomNumberGenerator.getRandomValues<Uint8Array>(new Uint8Array(32));
+            let random_int = Neo.BigInteger.fromUint8Array(random_uint8);
+            //塞入随机数
+            sb.EmitPushNumber(random_int);
+            sb.Emit(ThinNeo.OpCode.DROP);
+            //塞值
+            sb.EmitParamJson(["(address)" + address, "(integer)" + min, "(integer)" + max, "(integer)" + odds]);//第二个参数是个数组
+            sb.EmitPushString("guess");
+            sb.EmitAppCall(scriptaddress);
+            var result = await Contract.contractInvokeTrans_attributes(sb.ToArray())
+            return result;
+        }
     }
 }

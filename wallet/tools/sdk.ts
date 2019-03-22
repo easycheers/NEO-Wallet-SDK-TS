@@ -177,6 +177,24 @@ namespace EasyCheers {
             if (callback != null)  callback(JSON.stringify(res));
         }
 
+        // call guess-contract api to guess 
+        static async guess(contractHash: string, address: string,  min: string, max: string, val: string, callback = null) {
+            if (SDK.is_init === false) {
+                console.log("[Easy]", '[SDK]', 'You have to call function init first')
+                return;
+            }
+            if (!SDK.main.isLogined()) {
+                console.log("[Easy]", '[SDK]', 'You have to login first')
+                return;
+            }
+
+            let intMin = parseFloat(min);
+            let intMax = parseFloat(max);
+            let intVal = parseFloat(val);
+            let res = await tools.CoinTool.guess(contractHash, address, intMin, intMax, intVal);
+            if (callback != null)  callback(JSON.stringify(res));
+        }
+
     }  
 
     
