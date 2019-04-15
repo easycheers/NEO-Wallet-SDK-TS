@@ -26,3 +26,5 @@ tsc
 - 全局资产交易，如NEO，GAS
 
 用户可以自定制API
+
+SDK的使用方法参见：http://easycheers.com/quickLearning.docx
